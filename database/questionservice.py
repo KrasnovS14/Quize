@@ -18,7 +18,7 @@ def get_questions_db(level):
 
 
     # если указал сложность, то фильтр по вопросам
-    questions_from_level = Question.query.filter(level=level).all()
+    questions_from_level = Question.query.filter_by(level=level).all()
     questions = [random.choice(questions_from_level) for i in range(20)]
 
     return questions
@@ -36,3 +36,13 @@ def check_user_answer_db(question_id, user_answer):
     return False
 
 # Добавление вопросов в базу (ДЗ)
+def add_question_db(main_question, answer_1, answer_2, answer_3, answer_4, correct_answer, level):
+    question = Question(main_question=main_question,
+        answer_1=answer_1,
+        answer_2=answer_2,
+        answer_3=answer_3,
+        answer_4=answer_4,
+        level=level,
+        correct_answer=correct_answer)
+    db.session.add(question)
+    db.session.commit()

@@ -21,7 +21,7 @@ def register_user_db(name, phone_number):
 
 # Проверка пользователя
 def check_user_db(phone_number):
-    checker = User.query.filter(phone_number=phone_number).first()
+    checker = User.query.filter_by(phone_number=phone_number).first()
 
     if checker:
         return checker.id
