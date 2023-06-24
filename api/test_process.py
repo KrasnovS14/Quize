@@ -36,7 +36,8 @@ def get_user_questions(level: str) -> Qusetions:
 
 # Запрос на проверку ответа от пользователя
 
-@test_bp.route('/check-answer/<int:question_id>/string:user_answer>', methods=['POST'])
+
+@test_bp.route('/check-answer/<int:question_id>/<string:user_answer>', methods=['POST'])
 def check_current_user_answer(questions_id: int, user_answer: str) -> Dict[str, int]:
     result = check_user_answer_db(questions_id, user_answer)
 
