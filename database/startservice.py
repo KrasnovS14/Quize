@@ -19,26 +19,26 @@ def add_user_answer_db(user_id, user_answer, correctness, level):
 
 # Добавление в рейтинг
 
-def add_user_rating_db(user_id, correct_answers, level):
+def add_user_rating_db(user_id, level, correct_answers):
     # проверка есть ли пользователь в таблице(rating)
     user_rating = Rating.query.filter_by(user_id=user_id, level= level).first()
     if user_rating:
-        user_rating.user_correct_answer += correct_answers
+        user_rating.user_correct_answers += correct_answers
 
     else:
         user_rating = Rating(user_id=user_id,
-                             user_correct_answer=correct_answers, level = level)
+                             user_correct_answers=correct_answers, level = level)
         db.session.add(user_rating)
     db.session.commit()
 
 
 # Получить позицию пользователя в топе
-def get_user_positions(user_id, level, correct_answers):
+def get_user_positions(user_id, correct_answers, level):
     register_user_rating = add_user_rating_db(user_id, correct_answers, level)
 
-    user_position = Rating.query.order_by(Rating.user_correct_answer.desc()).filter_by(level=level)
+    user_position = Rating.query.order_by(Rating.user_correct_answers.desc()).filter_by(level=level)
     user_ids = [i.user_id for i in user_position]
-
+    print(user_ids)
     return user_ids.index(user_id) + 1
 
 

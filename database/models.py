@@ -20,7 +20,7 @@ class Question(db.Model):
     __tablename__ = 'questions'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     level = db.Column(db.String, default='Easy')
-    main_questions = db.Column(db.String, nullable=False)
+    main_question = db.Column(db.String, nullable=False)
     answer_1 = db.Column(db.String,)
     answer_2 = db.Column(db.String,)
     answer_3 = db.Column(db.String, nullable=True)
@@ -45,10 +45,10 @@ class Result(db.Model):
     questions_fr = db.relationship(Question)
 # Таблица для рейтинга
 class Rating(db.Model):
-    __tablename__ = 'rating'
+    __tablename__ = 'ratings'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    user_correct_answer = db.Column(db.Integer, default=0)
+    user_correct_answers = db.Column(db.Integer, default=0)
     level = db. Column(db.String)
 
     user_fk = db.relationship(User)
